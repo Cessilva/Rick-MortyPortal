@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Rick & Morty Character Viewer
 
-## Getting Started
+Un visualizador de personajes de Rick & Morty construido con Next.js, Redux Saga y TypeScript. Utiliza JSON Server para el manejo de datos de personajes de forma local.
 
-First, run the development server:
+## ✨ Características
+
+- **Visualización de personajes** con paginación (10 por página)
+- **Búsqueda** por nombre, estado, tipo o género
+- **Datos locales** con JSON Server
+- **Funciona sin internet** una vez configurado
+- **Interfaz moderna** con CSS Modules
+- **Redux simplificado** con acciones directas
+
+## 🚀 Configuración Rápida
 
 ```bash
+# 1. Clonar el repositorio
+git clone https://github.com/Cessilva/Rick-MortyPortal
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Iniciar JSON Server (en una terminal separada)
+npm run json-server
+
+# 4. Iniciar la aplicación (en otra terminal)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Configuración de JSON Server
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+La aplicación utiliza JSON Server para manejar los datos de personajes localmente.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Configuración
 
-## Learn More
+1. **Iniciar JSON Server**:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm run json-server
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Iniciar la aplicación**:
+   ```bash
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Nota:** Los datos se cargan desde `db.json` que incluye 826 personajes completos de Rick & Morty. La aplicación está configurada para usar `http://localhost:3001` por defecto y no requiere configuración adicional.
 
-## Deploy on Vercel
+## 📋 Comandos Disponibles
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Desarrollo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev          # Iniciar servidor de desarrollo
+npm run build        # Construir para producción
+npm run start        # Iniciar servidor de producción
+```
+
+### JSON Server
+
+```bash
+npm run json-server  # Iniciar JSON Server en puerto 3001
+```
+
+### Calidad de Código
+
+```bash
+npm run lint         # Verificar código
+npm run lint:fix     # Corregir errores automáticamente
+npm run format       # Formatear código
+npm run format:check # Verificar formato
+```
+
+## 🌐 URLs
+
+### Aplicación
+
+- **Desarrollo**: http://localhost:3000
+
+### JSON Server
+
+- **Base URL**: http://localhost:3001
+- **Endpoint**: `/characters`
+- **Búsqueda**: `?name_like=rick&_page=1&_limit=10`
+
+## 🔧 Redux Store
+
+### Estado Principal
+
+```typescript
+interface CharacterState {
+  characters: Character[]; // Lista de personajes
+  loading: boolean; // Estado de carga
+  error: string | null; // Errores
+  pagination: PaginationInfo; // Información de paginación
+  searchQuery: string; // Consulta de búsqueda
+}
+```
+
+### Acciones Simplificadas
+
+```typescript
+// Obtener personajes
+dispatch(fetchCharacters({ page: 1 }));
+
+// Buscar personajes
+dispatch(
+  searchCharacters({
+    page: 1,
+    searchQuery: 'rick',
+  })
+);
+
+// Establecer consulta de búsqueda
+dispatch(setSearchQuery('rick'));
+
+// Establecer personajes (manejado automáticamente por sagas)
+dispatch(setCharacters({ characters, pagination }));
+
+// Manejo de errores (manejado automáticamente por sagas)
+dispatch(setError('Error message'));
+```
+
+## 🙏 Agradecimientos
+
+- [Rick and Morty API](https://rickandmortyapi.com/) por los datos
+- [Next.js](https://nextjs.org/) por el framework
+- [Redux](https://redux.js.org/) por la gestión de estado
