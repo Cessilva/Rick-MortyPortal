@@ -10,6 +10,7 @@
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "json-server": "json-server --watch db.json --port 3001",
     "prepare": "husky"
   },
   "dependencies": {
@@ -33,6 +34,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "husky": "^9.1.7",
+    "json-server": "^1.0.0-beta.3",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5"
