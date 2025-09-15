@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Roboto_Condensed, Roboto } from 'next/font/google';
 
 import ReduxProvider from '@/store/ReduxProvider';
 import './globals.css';
@@ -12,6 +12,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+});
+
+const robotoCondensed = Roboto_Condensed({
+  variable: '--font-roboto-condensed',
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'],
+});
+
+const roboto = Roboto({
+  variable: '--font-roboto',
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable}`}
+        className={`${geistSans.variable} ${geistMono.variable} ${robotoCondensed.variable} ${roboto.variable}`}
         style={{ fontSmooth: 'antialiased' }}
       >
         <ReduxProvider>{children}</ReduxProvider>

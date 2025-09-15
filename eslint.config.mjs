@@ -22,6 +22,7 @@ const eslintConfig = [
     rules: {
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
+      'react-hooks/exhaustive-deps': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_' },

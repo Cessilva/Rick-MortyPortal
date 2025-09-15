@@ -34,7 +34,7 @@ function* fetchCharactersSaga(action: {
     const page = action.payload?.page || 1;
     const allCharacters: Character[] = yield call(loadLocalData);
     // Pagination
-    const itemsPerPage = 10;
+    const itemsPerPage = 6;
     const totalPages = Math.ceil(allCharacters.length / itemsPerPage);
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -98,7 +98,7 @@ function* searchCharactersSaga(action: {
     });
 
     // Pagination
-    const itemsPerPage = 10;
+    const itemsPerPage = 6;
     const totalPages = Math.ceil(filteredCharacters.length / itemsPerPage);
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
