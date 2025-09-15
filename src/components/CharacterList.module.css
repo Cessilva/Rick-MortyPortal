@@ -1,17 +1,23 @@
 .characterList {
-  width: auto;
-  margin: 0 auto;
-  border-radius: 20px;
+  width: 100%;
+  min-width: 0;
+  border-radius: 0 20px 20px 0;
   background: #1c1c1c;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: 100%;
+  min-height: 600px;
+
+  flex: 1;
 }
 
 .characterList__container {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 0;
 }
 
 .characterList__content {
@@ -21,18 +27,20 @@
   border-radius: 15px;
   padding: 20px;
   box-sizing: border-box;
-}
+  flex: 1;
 
-.characterList__searchSection {
-  padding: 20px;
-  border-radius: 15px;
+  min-width: 0;
 }
 
 .characterList__searchContainer {
   position: relative;
-  width: 240px;
+  width: 100%;
+  max-width: 300px;
   height: 56px;
+  background: #212121;
+  border-radius: 8px;
   margin: 0 auto;
+  flex-shrink: 0;
 }
 
 .characterList__searchIcon {
@@ -103,10 +111,40 @@
   gap: 25px;
   justify-items: center;
   flex: 1;
-  border-radius: 15px 0 0 15px;
-  padding: 20px;
-  min-height: 400px;
+  border-radius: 15px;
+  padding: 20px 0;
   box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Breakpoint específico para 1278px */
+@media (max-width: 1300px) and (min-width: 1200px) {
+  .characterList__grid {
+    gap: 20px;
+    padding: 18px;
+  }
+
+  .characterList__searchContainer {
+    max-width: 240px;
+  }
+}
+
+/* Breakpoint específico para 817px */
+@media (max-width: 900px) and (min-width: 800px) {
+  .characterList__grid {
+    gap: 15px;
+    padding: 15px 0;
+  }
+
+  .characterList__searchContainer {
+    max-width: 200px;
+  }
+
+  .characterList__paginationAside {
+    width: 60px;
+    min-width: 60px;
+  }
 }
 
 .characterList__noResults {
@@ -128,18 +166,29 @@
   color: #333;
   font-size: 1rem;
   text-align: center;
+}
+
+.characterList__pageInfoMobile {
+  display: none;
+  color: #333;
+  font-size: 0.875rem;
+  text-align: center;
+  margin: 0 0 15px 0;
+  padding: 10px 0;
   font-weight: 600;
 }
 
 .characterList__paginationAside {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   min-height: 400px;
-  border-radius: 0 15px 15px 0;
+  border-radius: 15px;
   flex-shrink: 0;
   box-sizing: border-box;
+
+  width: auto;
 }
 
 .characterList__paginationButtons {
@@ -155,7 +204,7 @@
   height: 3rem;
   border-radius: 4px;
   border: none;
-  background-color: #7b7b7bb2;
+  background-color: #7b7b7b;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -165,11 +214,19 @@
 }
 
 .characterList__paginationButton:hover:not(:disabled) {
-  background-color: #7b7b7bb2;
+  background-color: #7b7b7b;
+}
+
+.characterList__paginationButton:hover:not(:disabled) img {
+  content: url('/VectorGreen.png');
 }
 
 .characterList__paginationButton:active:not(:disabled) {
-  background-color: #5b5454b2;
+  background-color: #5b5454;
+}
+
+.characterList__paginationButton:active:not(:disabled) img {
+  content: url('/VectorGreen.png');
 }
 
 .characterList__paginationButton:disabled {
@@ -181,109 +238,249 @@
   transform: rotate(180deg);
 }
 
-@media (max-width: 360px) {
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 479px) {
+  .characterList {
+    padding: 0;
+    gap: 0;
+    height: auto;
+    min-height: auto;
+    background: transparent;
+    margin: 0;
+    width: 100%;
+  }
+
+  .characterList__pageInfoMobile {
+    display: block;
+    margin: 1rem 0;
+    padding: 2px 0;
+  }
+
+  .characterList__paginationContainer {
+    display: none;
+  }
+
+  .characterList__container {
+    gap: 0;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .characterList__content {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    height: auto;
+    overflow: visible;
+    margin: 0;
+    width: 100%;
+  }
+
   .characterList__grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    padding: 8px;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    width: 100%;
   }
 
   .characterList__searchContainer {
-    width: 180px;
+    width: 100%;
+    max-width: 300px;
+    height: 40px;
+    margin: 0 auto 1.5rem auto;
+  }
+
+  .characterList__searchInput {
+    font-size: 0.7rem;
+    padding: 8px 8px 8px 32px;
+    height: 40px;
+
+    background: transparent;
+  }
+
+  .characterList__searchIcon {
+    left: 8px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .characterList__paginationAside {
+    flex-direction: row;
+    justify-content: center;
+    min-height: auto;
+    padding: 8px;
+    width: 100%;
+  }
+
+  .characterList__paginationButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .characterList__paginationButton {
+    background: #7b7b7b;
+    rotate: -90deg;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+/* Pantallas tabletas y móviles (769px hacia abajo) */
+@media (max-width: 769px) {
+  .characterList {
+    border-radius: 20px;
+  }
+}
+
+/* Pantallas pequeñas (480px - 767px) */
+@media (max-width: 899px) and (min-width: 480px) {
+  .characterList {
+    padding: 15px;
+    gap: 15px;
+    min-height: 500px;
+  }
+
+  .characterList__pageInfoMobile {
+    display: none;
+  }
+
+  .characterList__container {
+    gap: 15px;
+  }
+
+  .characterList__content {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .characterList__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 15px 0;
+    min-height: 200px;
+  }
+
+  .characterList__searchContainer {
+    width: 100%;
+    max-width: 350px;
+    height: 50px;
+    margin: 0 auto 10px auto;
+  }
+
+  .characterList__searchInput {
+    font-size: 1rem;
+    padding: 14px 14px 14px 44px;
+    height: 50px;
+  }
+
+  .characterList__searchIcon {
+    left: 14px;
+  }
+
+  .characterList__paginationAside {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-height: auto;
+    padding: 15px;
+    width: 100%;
+    gap: 20px;
+  }
+
+  .characterList__paginationButtons {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .characterList__paginationButton {
+    opacity: 1;
+  }
+}
+
+/* Pantallas tablet-móvil (600px - 767px) - Una sola fila */
+@media (max-width: 899px) and (min-width: 680px) {
+  .characterList__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .characterList__searchContainer {
+    max-width: 180px;
     height: 44px;
   }
 
   .characterList__searchInput {
     font-size: 0.8rem;
     padding: 10px 10px 10px 36px;
-  }
-
-  .characterList__searchIcon {
-    left: 10px;
+    height: 44px;
   }
 }
 
-@media (max-width: 480px) {
+/* Pantallas medianas (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
   .characterList {
-    padding: 10px;
-    gap: 10px;
-  }
-
-  .characterList__container {
-    gap: 10px;
+    padding: 15px;
+    gap: 15px;
   }
 
   .characterList__content {
-    flex-direction: column;
-    gap: 0;
-    padding: 10px;
-  }
-
-  .characterList__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    padding: 10px;
+    flex-direction: row;
   }
 
   .characterList__searchContainer {
-    width: 200px;
+    width: 100%;
+    max-width: 200px;
     height: 48px;
   }
-
+  .characterList__paginationButton {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
   .characterList__searchInput {
     font-size: 0.9rem;
     padding: 12px 12px 12px 40px;
-  }
-
-  .characterList__searchIcon {
-    left: 12px;
+    height: 48px;
   }
 
   .characterList__paginationAside {
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    min-height: auto;
-    padding: 10px;
-    width: 100%;
+    min-height: 350px;
+
+    width: 70px;
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
-  .characterList {
-    padding: 15px;
-    gap: 15px;
-  }
-
-  .characterList__container {
-    gap: 15px;
-  }
-
+/* Pantallas medianas-pequeñas (1008px y menores) */
+@media (max-width: 1008px) {
   .characterList__content {
     flex-direction: column;
-    gap: 0;
-    padding: 15px;
-  }
-
-  .characterList__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-
-  .characterList__searchContainer {
-    width: 220px;
-    height: 52px;
-  }
-
-  .characterList__searchInput {
-    font-size: 1rem;
-    padding: 14px 14px 14px 44px;
   }
 
   .characterList__paginationAside {
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     min-height: auto;
-    padding: 15px;
     width: 100%;
+  }
+
+  .characterList__paginationButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .characterList__paginationButton {
+    background: #7b7b7b;
+    rotate: -90deg;
   }
 }

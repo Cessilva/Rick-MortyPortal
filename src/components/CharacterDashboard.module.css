@@ -1,0 +1,162 @@
+.characterDashboard {
+  padding: 2rem;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  width: 90%;
+  max-width: 90vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.characterDashboard__mainContent {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+.characterDashboard__characterViewContainer {
+  flex: 0 0 40%;
+  min-width: 0;
+}
+
+.characterDashboard__characterListContainer {
+  flex: 0 0 60%;
+  min-width: 0;
+}
+
+/* Pantallas extra grandes (2531px+) */
+@media (min-width: 2531px) {
+  .characterDashboard {
+    width: 50%;
+    max-width: 50vw;
+  }
+}
+
+/* Pantallas grandes (2034px - 2530px) */
+@media (max-width: 2530px) and (min-width: 2034px) {
+  .characterDashboard {
+    width: 65%;
+    max-width: 65vw;
+  }
+}
+
+/* Pantallas grandes (1600px - 2033px) */
+@media (max-width: 2033px) and (min-width: 1600px) {
+  .characterDashboard {
+    width: 70%;
+    max-width: 70vw;
+  }
+}
+
+/* Pantallas grandes (1024px - 1599px) */
+@media (max-width: 1599px) and (min-width: 1024px) {
+  .characterDashboard {
+    width: 80%;
+    max-width: 80vw;
+  }
+}
+
+/* Pantallas medianas (900px - 1023px) */
+@media (max-width: 1023px) and (min-width: 900px) {
+  .characterDashboard {
+    width: 85%;
+    max-width: 85vw;
+  }
+}
+
+/* Pantallas medianas-tablet (768px - 899px) */
+@media (max-width: 899px) and (min-width: 768px) {
+  .characterDashboard {
+    width: 90%;
+    max-width: 90vw;
+  }
+
+  .characterDashboard__mainContent {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .characterDashboard__characterViewContainer {
+    flex: 0 0 auto;
+    min-height: 400px;
+    order: 1;
+  }
+
+  .characterDashboard__characterListContainer {
+    flex: 1;
+    order: 2;
+  }
+}
+
+/* Pantallas tabletas (480px - 767px) */
+@media (max-width: 899px) and (min-width: 480px) {
+  .characterDashboard {
+    width: 95%;
+    max-width: 95vw;
+    padding: 1rem;
+    margin: 0.5rem auto;
+  }
+
+  .characterDashboard__mainContent {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .characterDashboard__characterViewContainer {
+    flex: 0 0 auto;
+    min-height: 400px;
+    order: 1;
+  }
+
+  .characterDashboard__characterListContainer {
+    flex: 1;
+    order: 2;
+  }
+}
+
+/* Pantallas móviles pequeñas (menos de 480px) */
+@media (max-width: 479px) {
+  .characterDashboard {
+    width: 98%;
+    max-width: 98vw;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    height: auto;
+  }
+
+  .characterDashboard__mainContent {
+    flex-direction: column;
+    gap: 0;
+    height: auto;
+    padding: 1.5rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .characterDashboard__characterListContainer {
+    flex: 0 0 auto;
+    order: 1;
+    height: auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .characterDashboard__characterViewContainer {
+    flex: 0 0 auto;
+    min-height: auto;
+    order: 2;
+    height: auto;
+    width: 100%;
+  }
+}

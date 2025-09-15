@@ -45,6 +45,7 @@ interface CharacterState {
     currentPage: number;
   };
   searchQuery: string;
+  selectedCharacter: Character | null;
 }
 
 // Initial state
@@ -59,6 +60,7 @@ const initialState: CharacterState = {
     currentPage: 1,
   },
   searchQuery: '',
+  selectedCharacter: null,
 };
 
 // Character slice
@@ -105,6 +107,15 @@ const characterSlice = createSlice({
     clearSearch: state => {
       state.searchQuery = '';
     },
+
+    // Character selection actions
+    setSelectedCharacter: (state, action: PayloadAction<Character | null>) => {
+      state.selectedCharacter = action.payload;
+    },
+
+    clearSelectedCharacter: state => {
+      state.selectedCharacter = null;
+    },
   },
 });
 
@@ -116,6 +127,8 @@ export const {
   searchCharacters,
   setSearchQuery,
   clearSearch,
+  setSelectedCharacter,
+  clearSelectedCharacter,
 } = characterSlice.actions;
 
 export default characterSlice.reducer;

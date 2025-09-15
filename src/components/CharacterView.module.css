@@ -1,0 +1,358 @@
+.characterView {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  margin-left: 0;
+  border-radius: 20px 0 0 20px;
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+}
+
+.characterView__container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.characterView__imageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.characterView__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px 0 0 20px;
+}
+
+.characterView__infoContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  border-radius: 0 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.7);
+  font-family: var(--font-roboto-condensed), sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 19px;
+  letter-spacing: 0%;
+  text-align: center;
+  z-index: 2;
+  min-height: 200px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.characterView__topInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.characterView__name {
+  font-family: var(--font-roboto-condensed), sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #76dd00;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(118, 221, 0, 0.5);
+  letter-spacing: 0%;
+  text-align: left;
+  line-height: 19px;
+}
+
+.characterView__speciesType {
+  display: flex;
+  flex-direction: column;
+}
+
+.characterView__species,
+.characterView__type {
+  font-family: var(--font-roboto-condensed), sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0%;
+  text-align: left;
+  margin: 0;
+}
+
+.characterView__details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  justify-items: center;
+  align-items: start;
+  margin-top: auto;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 10px;
+}
+
+.characterView__detailItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.characterView__detailLabel {
+  font-family: var(--font-roboto-condensed), sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #76dd00;
+  text-transform: uppercase;
+  letter-spacing: 0%;
+  line-height: 25px;
+  text-align: center;
+  margin: 0;
+}
+
+.characterView__detailValue {
+  font-family: var(--font-roboto-condensed), sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0%;
+  text-align: center;
+  margin: 0;
+}
+
+/* Pantallas medianas (menos de 1200px) - Dos columnas */
+@media (max-width: 1199px) {
+  .characterView__details {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+/* Pantallas medianas-pequeñas (1008px y menores) */
+@media (max-width: 1008px) {
+  .characterView__infoContainer {
+    min-height: 220px;
+    padding: 25px;
+  }
+}
+
+/* Pantallas tabletas (768px - 1007px) */
+@media (max-width: 1007px) and (min-width: 768px) {
+  .characterView__container {
+    position: relative;
+  }
+
+  .characterView__imageContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .characterView__infoContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 200px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+  }
+
+  .characterView__name {
+    font-size: 1.8rem;
+    margin: 0 0 12px 0;
+  }
+
+  .characterView__species,
+  .characterView__type {
+    font-size: 14px;
+    margin: 2px 0;
+  }
+
+  .characterView__details {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .characterView__detailItem {
+    padding: 4px 0;
+  }
+
+  .characterView__detailLabel {
+    font-size: 12px;
+  }
+
+  .characterView__detailValue {
+    font-size: 12px;
+  }
+}
+
+/* Pantallas tabletas y móviles (769px hacia abajo) */
+@media (max-width: 769px) {
+  .characterView {
+    border-radius: 20px;
+  }
+
+  .characterView__image {
+    border-radius: 20px;
+  }
+}
+
+/* Pantallas móviles (menos de 768px) */
+@media (max-width: 899px) {
+  .characterView {
+    margin-left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+  }
+
+  .characterView__container {
+    position: relative;
+    flex-direction: column;
+  }
+
+  .characterView__image {
+    border-radius: 20px;
+  }
+
+  .characterView__imageContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .characterView__infoContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0 0 20px 20px;
+    min-height: 160px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+  }
+
+  .characterView__name {
+    font-size: 1.4rem;
+  }
+
+  .characterView__species,
+  .characterView__type {
+    font-size: 14px;
+    margin: 1px 0;
+  }
+
+  .characterView__details {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .characterView__detailItem {
+    padding: 3px 0;
+  }
+
+  .characterView__detailLabel {
+    font-size: 18px;
+  }
+
+  .characterView__detailValue {
+    font-size: 14px;
+  }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 479px) {
+  .characterView {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    height: auto;
+    min-height: auto;
+    width: 100%;
+  }
+
+  .characterView__container {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    width: 100%;
+  }
+
+  .characterView__imageContainer {
+    position: relative;
+    height: auto;
+    min-height: 200px;
+    width: 100%;
+    border-radius: 15px;
+  }
+
+  .characterView__image {
+    border-radius: 0;
+    width: 100%;
+    height: auto;
+    min-height: 200px;
+    object-fit: cover;
+  }
+
+  .characterView__infoContainer {
+    padding: 4px;
+    min-height: 100px;
+
+    border-radius: 0 0 15px 15px;
+  }
+
+  .characterView__name {
+    font-size: 1.2rem;
+  }
+
+  .characterView__species,
+  .characterView__type {
+    font-size: 12px;
+  }
+
+  .characterView__details {
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 8px;
+  }
+
+  .characterView__detailLabel {
+    font-size: 14px;
+  }
+
+  .characterView__detailValue {
+    font-size: 12px;
+  }
+}

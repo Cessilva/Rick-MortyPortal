@@ -1,4 +1,4 @@
-import ApiTestComponent from '@/components/ApiTestComponent';
+import CharacterDashboard from '@/components/CharacterDashboard';
 
 import styles from './page.module.css';
 
@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className={styles.mainContainer}>
       <main className={styles.main}>
-        <ApiTestComponent />
+        <CharacterDashboard />
       </main>
     </div>
   );

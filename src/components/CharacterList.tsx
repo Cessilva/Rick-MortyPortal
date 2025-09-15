@@ -9,6 +9,7 @@ import {
   searchCharacters,
   setSearchQuery,
   clearSearch,
+  setSelectedCharacter,
 } from '@/store/slices/characterSlice';
 
 import CharacterCard from './CharacterCard';
@@ -22,6 +23,18 @@ export default function CharacterList() {
   const [selectedCharacterId, setSelectedCharacterId] = useState<number | null>(
     null
   );
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 480);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
 
   // Cargar datos iniciales
   useEffect(() => {
@@ -29,6 +42,15 @@ export default function CharacterList() {
       dispatch(fetchCharacters({ page: 1 }));
     }
   }, [dispatch]);
+
+  // Seleccionar el primer personaje cuando se cargan los datos
+  useEffect(() => {
+    if (characters.length > 0 && !selectedCharacterId) {
+      const firstCharacter = characters[0];
+      setSelectedCharacterId(firstCharacter.id);
+      dispatch(setSelectedCharacter(firstCharacter));
+    }
+  }, [characters, selectedCharacterId, dispatch]);
 
   const handleSearch = (query: string) => {
     dispatch(setSearchQuery(query));
@@ -56,7 +78,7 @@ export default function CharacterList() {
   };
 
   const handleNextPage = () => {
-    if (pagination.currentPage < pagination.pages) {
+    if (pagination.currentPage < totalPages) {
       const newPage = pagination.currentPage + 1;
       if (searchQuery.trim()) {
         dispatch(searchCharacters({ page: newPage, searchQuery }));
@@ -68,11 +90,26 @@ export default function CharacterList() {
 
   const handleCharacterSelect = (characterId: number) => {
     setSelectedCharacterId(characterId);
+    const character = characters.find(char => char.id === characterId);
+    if (character) {
+      dispatch(setSelectedCharacter(character));
+    }
   };
+
+  // Calcular paginación basada en elementos mostrados
+  const itemsPerPage = isMobile ? 2 : 4;
+  const totalPages = Math.ceil(pagination.count / itemsPerPage);
 
   return (
     <div className={styles.characterList}>
       <div className={styles.characterList__container}>
+        {totalPages > 1 && (
+          <div className={styles.characterList__pageInfoMobile}>
+            Página {pagination.currentPage} de {totalPages} • {pagination.count}{' '}
+            personajes totales
+          </div>
+        )}
+
         <div className={styles.characterList__searchSection}>
           <div className={styles.characterList__searchContainer}>
             <Image
@@ -110,7 +147,7 @@ export default function CharacterList() {
           <div className={styles.characterList__grid}>
             {characters.length > 0 ? (
               characters
-                .slice(0, 6)
+                .slice(0, isMobile ? 2 : 4)
                 .map(character => (
                   <CharacterCard
                     key={character.id}
@@ -128,7 +165,7 @@ export default function CharacterList() {
             )}
           </div>
 
-          {pagination.pages > 1 && (
+          {totalPages > 1 && (
             <div className={styles.characterList__paginationAside}>
               <div className={styles.characterList__paginationButtons}>
                 <button
@@ -146,7 +183,7 @@ export default function CharacterList() {
                 <button
                   className={`${styles.characterList__paginationButton} ${styles.characterList__paginationButton_theme_next}`}
                   onClick={handleNextPage}
-                  disabled={pagination.currentPage === pagination.pages}
+                  disabled={pagination.currentPage === totalPages}
                 >
                   <Image
                     src="/VectorWhite.png"
@@ -160,10 +197,10 @@ export default function CharacterList() {
           )}
         </div>
 
-        {pagination.pages > 1 && (
+        {totalPages > 1 && (
           <div className={styles.characterList__paginationContainer}>
             <div className={styles.characterList__pageInfo}>
-              Página {pagination.currentPage} de {pagination.pages} •{' '}
+              Página {pagination.currentPage} de {totalPages} •{' '}
               {pagination.count} personajes totales
             </div>
           </div>
