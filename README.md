@@ -35,6 +35,9 @@ make dev
 # 1. Clonar el repositorio
 git clone https://github.com/Cessilva/Rick-MortyPortal
 
+# 2. Navegar al directorio
+cd Rick-MortyPortal
+
 # 2. Instalar dependencias
 npm install
 
