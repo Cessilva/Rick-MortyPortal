@@ -1,17 +1,32 @@
 # 🎬 Rick & Morty Character Viewer
 
-Un visualizador de personajes de Rick & Morty construido con Next.js, Redux Saga y TypeScript. Utiliza JSON Server para el manejo de datos de personajes de forma local.
+Un visualizador de personajes de Rick & Morty construido con Next.js, React Context y TypeScript. Utiliza JSON Server para el manejo de datos de personajes de forma local.
 
 ## ✨ Características
 
-- **Visualización de personajes** con paginación (10 por página)
-- **Búsqueda** por nombre, estado, tipo o género
+- **Visualización de personajes** con paginación responsive (4 en desktop, 2 en móvil)
+- **Búsqueda** por nombre
+- **Sistema de favoritos** con dropdown interactivo
 - **Datos locales** con JSON Server
-- **Funciona sin internet** una vez configurado
 - **Interfaz moderna** con CSS Modules
-- **Redux simplificado** con acciones directas
+- **Arquitectura simplificada** con React Context
 
 ## 🚀 Configuración Rápida
+
+### Opción 1: Con Makefile (Recomendado)
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/Cessilva/Rick-MortyPortal
+
+# 2. Navegar al directorio
+cd Rick-MortyPortal
+
+# 3. Iniciar todo automáticamente
+make dev
+```
+
+### Opción 2: Manual
 
 ```bash
 # 1. Clonar el repositorio
@@ -27,38 +42,15 @@ npm run json-server
 npm run dev
 ```
 
-## ⚙️ Configuración de JSON Server
-
-La aplicación utiliza JSON Server para manejar los datos de personajes localmente.
-
-### Configuración
-
-1. **Iniciar JSON Server**:
-
-   ```bash
-   npm run json-server
-   ```
-
-2. **Iniciar la aplicación**:
-   ```bash
-   npm run dev
-   ```
-
 **Nota:** Los datos se cargan desde `db.json` que incluye 826 personajes completos de Rick & Morty. La aplicación está configurada para usar `http://localhost:3001` por defecto y no requiere configuración adicional.
 
 ## 📋 Comandos Disponibles
 
-### Desarrollo
-
 ```bash
+make help           # Mostrar ayuda
 npm run dev          # Iniciar servidor de desarrollo
 npm run build        # Construir para producción
 npm run start        # Iniciar servidor de producción
-```
-
-### JSON Server
-
-```bash
 npm run json-server  # Iniciar JSON Server en puerto 3001
 ```
 
@@ -79,50 +71,49 @@ npm run format:check # Verificar formato
 
 ### JSON Server
 
-- **Base URL**: http://localhost:3001
-- **Endpoint**: `/characters`
-- **Búsqueda**: `?name_like=rick&_page=1&_limit=10`
+- **API**: http://localhost:3001
+- **Personajes**: http://localhost:3001/characters
 
-## 🔧 Redux Store
+## 📁 Estructura del Proyecto
 
-### Estado Principal
-
-```typescript
-interface CharacterState {
-  characters: Character[]; // Lista de personajes
-  loading: boolean; // Estado de carga
-  error: string | null; // Errores
-  pagination: PaginationInfo; // Información de paginación
-  searchQuery: string; // Consulta de búsqueda
-}
+```
+src/
+├── app/                    # Páginas de Next.js
+│   ├── globals.css        # Estilos globales
+│   ├── layout.tsx         # Layout principal
+│   ├── page.module.css    # Estilos de la página principal
+│   └── page.tsx           # Página principal
+├── components/            # Componentes React
+│   ├── CharacterCard.tsx  # Tarjeta de personaje
+│   ├── CharacterCard.module.css
+│   ├── CharacterDashboard.tsx # Dashboard principal
+│   ├── CharacterDashboard.module.css
+│   ├── CharacterList.tsx  # Lista de personajes
+│   ├── CharacterList.module.css
+│   ├── CharacterView.tsx  # Vista de personaje
+│   ├── CharacterView.module.css
+│   ├── FavoritesTab.tsx   # Tab de favoritos
+│   ├── FavoritesTab.module.css
+│   ├── StatusBadge.tsx    # Badge de estado
+│   └── StatusBadge.module.css
+├── context/              # Contextos de React
+│   ├── CharactersContext.tsx # Contexto de personajes
+│   └── FavoritesContext.tsx  # Contexto de favoritos
+└── services/             # Servicios de API
+    └── characterService.ts # Servicio de personajes
 ```
 
-### Acciones Simplificadas
+## 💭 Reflexiones del Desarrollo
 
-```typescript
-// Obtener personajes
-dispatch(fetchCharacters({ page: 1 }));
+### ¿Qué es lo que más te gustó de TU desarrollo?
 
-// Buscar personajes
-dispatch(
-  searchCharacters({
-    page: 1,
-    searchQuery: 'rick',
-  })
-);
+Lo que más me gustó de mi desarrollo fue la estructura del proyecto, que se mantuvo simple y fácil de entender. Disfruté trabajando con CSS Modules, especialmente al aprender sobre sus limitaciones de anidación al intentar aplicar BEM. Además, fue una experiencia enriquecedora conocer e integrar JSON Server, ya que era mi primera vez usándolo.
 
-// Establecer consulta de búsqueda
-dispatch(setSearchQuery('rick'));
+### Si hubieras tenido más tiempo ¿qué hubieras mejorado o qué más hubieras hecho?
 
-// Establecer personajes (manejado automáticamente por sagas)
-dispatch(setCharacters({ characters, pagination }));
+Si hubiera tenido más tiempo, me habría dedicado a revisar a fondo mi código para mejorar la distribución de la interfaz , asegurarme de manejar adecuadamente los errores y la carga de datos. También me habría enfocado en completar las pruebas unitarias . Habría considerado agregar funcionalidades adicionales, como pestañas para episodios o un sistema de inicio de sesión.
 
-// Manejo de errores (manejado automáticamente por sagas)
-dispatch(setError('Error message'));
-```
+### Descríbenos un pain point o bug con el que te hayas encontrado y cómo lo solucionaste.
 
-## 🙏 Agradecimientos
+En este proyecto, me encontré con un pain point al dar por hecho el flujo de la aplicación, enfocándome demasiado en cumplir con los requisitos sin considerar cómo mantener el diseño simple. Esto es algo que como programadores nos sucede a menudo, ya que nos centramos en las especificaciones y no siempre en la mejor solución. Para resolver esto, me tomé el tiempo para reevaluar los requisitos y reestructurar mi código, adecuando las necesidades del proyecto a una solución más óptima y eficiente.
 
-- [Rick and Morty API](https://rickandmortyapi.com/) por los datos
-- [Next.js](https://nextjs.org/) por el framework
-- [Redux](https://redux.js.org/) por la gestión de estado

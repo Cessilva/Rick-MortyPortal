@@ -133,7 +133,9 @@ export default function CharacterList() {
         )}
 
         <div className={styles.characterList__favoritesContainer}>
-          <FavoritesTab onCharacterSelect={handleCharacterSelect} />
+          <FavoritesTab
+            onCharacterSelect={character => handleCharacterSelect(character.id)}
+          />
         </div>
       </div>
     </div>
