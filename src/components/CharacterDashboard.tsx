@@ -1,16 +1,19 @@
 'use client';
 
-// import { useAppSelector } from '@/store/hooks';
+import { useCharacters } from '@/context/CharactersContext';
+import { Character } from '@/services/characterService';
 
 import styles from './CharacterDashboard.module.css';
 import CharacterList from './CharacterList';
 import CharacterView from './CharacterView';
+import FavoritesTab from './FavoritesTab';
 
 export default function CharacterDashboard() {
-  // Note: These values are available for future use in error handling or debugging
-  // const { error, pagination, searchQuery } = useAppSelector(
-  //   state => state.characters
-  // );
+  const { handleCharacterSelect } = useCharacters();
+
+  const handleFavoriteSelect = (character: Character) => {
+    handleCharacterSelect(character.id);
+  };
 
   return (
     <div className={styles.characterDashboard}>
@@ -21,6 +24,9 @@ export default function CharacterDashboard() {
         <div className={styles.characterDashboard__characterListContainer}>
           <CharacterList />
         </div>
+      </div>
+      <div className={styles.characterDashboard__favoritesContainer}>
+        <FavoritesTab onCharacterSelect={handleFavoriteSelect} />
       </div>
     </div>
   );

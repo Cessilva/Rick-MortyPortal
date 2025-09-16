@@ -6,6 +6,7 @@ import { useCharacters } from '@/context/CharactersContext';
 
 import CharacterCard from './CharacterCard';
 import styles from './CharacterList.module.css';
+import FavoritesTab from './FavoritesTab';
 
 export default function CharacterList() {
   const {
@@ -62,9 +63,12 @@ export default function CharacterList() {
           </div>
         </div>
 
-        {error && (
-          <div className={styles.characterList__errorMessage}>
-            Error: {error}
+        {totalPages > 1 && (
+          <div className={styles.characterList__paginationContainer}>
+            <div className={styles.characterList__pageInfo}>
+              Página {pagination.currentPage} de {totalPages} •{' '}
+              {pagination.count} personajes totales
+            </div>
           </div>
         )}
 
@@ -122,14 +126,15 @@ export default function CharacterList() {
           )}
         </div>
 
-        {totalPages > 1 && (
-          <div className={styles.characterList__paginationContainer}>
-            <div className={styles.characterList__pageInfo}>
-              Página {pagination.currentPage} de {totalPages} •{' '}
-              {pagination.count} personajes totales
-            </div>
+        {error && (
+          <div className={styles.characterList__errorMessage}>
+            Error: {error}
           </div>
         )}
+
+        <div className={styles.characterList__favoritesContainer}>
+          <FavoritesTab onCharacterSelect={handleCharacterSelect} />
+        </div>
       </div>
     </div>
   );
