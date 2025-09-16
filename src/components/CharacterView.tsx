@@ -2,15 +2,13 @@
 
 import Image from 'next/image';
 
-import { useAppSelector } from '@/store/hooks';
+import { useCharacters } from '@/context/CharactersContext';
 
 import styles from './CharacterView.module.css';
 import StatusBadge from './StatusBadge';
 
 export default function CharacterView() {
-  const { selectedCharacter, characters } = useAppSelector(
-    state => state.characters
-  );
+  const { selectedCharacter, characters } = useCharacters();
 
   const displayCharacter = selectedCharacter || characters[0];
 

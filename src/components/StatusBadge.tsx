@@ -31,7 +31,7 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({
       case 'dead':
         return 'MUERTO';
       case 'unknown':
-        return 'DESCONOCIDO';
+        return 'UNKNOWN';
       default:
         return 'VIVO';
     }

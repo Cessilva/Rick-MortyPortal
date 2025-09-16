@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
 
-import { Character } from '@/store/slices/characterSlice';
+import { useFavorites } from '@/context/FavoritesContext';
+import { Character } from '@/services/characterService';
 
 import styles from './CharacterCard.module.css';
 
@@ -18,10 +18,16 @@ export default function CharacterCard({
   isSelected = false,
   onSelect,
 }: CharacterCardProps) {
-  const [isLiked, setIsLiked] = useState(false);
+  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+  const isLiked = isFavorite(character.id);
 
-  const handleLike = () => {
-    setIsLiked(!isLiked);
+  const handleLike = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent card selection when clicking like button
+    if (isLiked) {
+      removeFavorite(character.id);
+    } else {
+      addFavorite(character);
+    }
   };
 
   const handleCardClick = () => {

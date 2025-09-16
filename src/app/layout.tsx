@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Roboto_Condensed, Roboto } from 'next/font/google';
 
-import ReduxProvider from '@/store/ReduxProvider';
+import { CharactersProvider } from '@/context/CharactersContext';
+import { FavoritesProvider } from '@/context/FavoritesContext';
 import './globals.css';
 
 const geistSans = Geist({
@@ -28,7 +29,7 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: 'Rick & Morty App',
-  description: 'Character management app with Redux and Next.js',
+  description: 'Character management app with React Context and Next.js',
 };
 
 export default function RootLayout({
@@ -42,7 +43,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${robotoCondensed.variable} ${roboto.variable}`}
         style={{ fontSmooth: 'antialiased' }}
       >
-        <ReduxProvider>{children}</ReduxProvider>
+        <CharactersProvider>
+          <FavoritesProvider>{children}</FavoritesProvider>
+        </CharactersProvider>
       </body>
     </html>
   );

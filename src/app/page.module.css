@@ -27,3 +27,10 @@
   width: 100%;
   height: 100vh;
 }
+
+/* Pantallas móviles pequeñas (menos de 480px) */
+@media (max-width: 479px) {
+  .mainContainer {
+    background-image: url('/R-M-BG-mobile.jpg');
+  }
+}

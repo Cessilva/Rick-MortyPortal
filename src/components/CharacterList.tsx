@@ -1,104 +1,29 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import {
-  fetchCharacters,
-  searchCharacters,
-  setSearchQuery,
-  clearSearch,
-  setSelectedCharacter,
-} from '@/store/slices/characterSlice';
+import { useCharacters } from '@/context/CharactersContext';
 
 import CharacterCard from './CharacterCard';
 import styles from './CharacterList.module.css';
 
 export default function CharacterList() {
-  const dispatch = useAppDispatch();
-  const { characters, error, pagination, searchQuery } = useAppSelector(
-    state => state.characters
-  );
-  const [selectedCharacterId, setSelectedCharacterId] = useState<number | null>(
-    null
-  );
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 480);
-    };
-
-    checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
-
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, []);
-
-  // Cargar datos iniciales
-  useEffect(() => {
-    if (characters.length === 0) {
-      dispatch(fetchCharacters({ page: 1 }));
-    }
-  }, [dispatch]);
-
-  // Seleccionar el primer personaje cuando se cargan los datos
-  useEffect(() => {
-    if (characters.length > 0 && !selectedCharacterId) {
-      const firstCharacter = characters[0];
-      setSelectedCharacterId(firstCharacter.id);
-      dispatch(setSelectedCharacter(firstCharacter));
-    }
-  }, [characters, selectedCharacterId, dispatch]);
-
-  const handleSearch = (query: string) => {
-    dispatch(setSearchQuery(query));
-    if (query.trim()) {
-      dispatch(searchCharacters({ page: 1, searchQuery: query }));
-    } else {
-      dispatch(fetchCharacters({ page: 1 }));
-    }
-  };
-
-  const handleClearSearch = () => {
-    dispatch(clearSearch());
-    dispatch(fetchCharacters({ page: 1 }));
-  };
-
-  const handlePreviousPage = () => {
-    if (pagination.currentPage > 1) {
-      const newPage = pagination.currentPage - 1;
-      if (searchQuery.trim()) {
-        dispatch(searchCharacters({ page: newPage, searchQuery }));
-      } else {
-        dispatch(fetchCharacters({ page: newPage }));
-      }
-    }
-  };
-
-  const handleNextPage = () => {
-    if (pagination.currentPage < totalPages) {
-      const newPage = pagination.currentPage + 1;
-      if (searchQuery.trim()) {
-        dispatch(searchCharacters({ page: newPage, searchQuery }));
-      } else {
-        dispatch(fetchCharacters({ page: newPage }));
-      }
-    }
-  };
-
-  const handleCharacterSelect = (characterId: number) => {
-    setSelectedCharacterId(characterId);
-    const character = characters.find(char => char.id === characterId);
-    if (character) {
-      dispatch(setSelectedCharacter(character));
-    }
-  };
+  const {
+    characters,
+    selectedCharacter,
+    pagination,
+    searchQuery,
+    error,
+    isMobile,
+    handleSearch,
+    handleClearSearch,
+    handleCharacterSelect,
+    handlePreviousPage,
+    handleNextPage,
+  } = useCharacters();
 
   // Calcular paginación basada en elementos mostrados
-  const itemsPerPage = isMobile ? 2 : 4;
-  const totalPages = Math.ceil(pagination.count / itemsPerPage);
+  const totalPages = pagination.pages;
 
   return (
     <div className={styles.characterList}>
@@ -152,7 +77,7 @@ export default function CharacterList() {
                   <CharacterCard
                     key={character.id}
                     character={character}
-                    isSelected={selectedCharacterId === character.id}
+                    isSelected={selectedCharacter?.id === character.id}
                     onSelect={() => handleCharacterSelect(character.id)}
                   />
                 ))
