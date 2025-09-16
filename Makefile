@@ -1,6 +1,6 @@
 # Rick & Morty Character Viewer - Makefile
 
-.PHONY: help install dev build json-server lint lint-fix format format-check clean
+.PHONY: help install first-dev dev build json-server lint lint-fix format format-check clean
 
 # Variables
 DIST = .next
@@ -17,9 +17,16 @@ install: ## Instalar dependencias
 	npm install
 
 # Desarrollo
-dev: install ## Instalar dependencias, iniciar JSON Server y desarrollo
-	@echo "🚀 Iniciando desarrollo completo..."
+first-dev: install ## Primera instalación: instalar dependencias, iniciar JSON Server y desarrollo
+	@echo "🚀 Primera instalación - Iniciando desarrollo completo..."
 	@echo "📦 Instalando dependencias..."
+	@echo "🗄️  Iniciando JSON Server..."
+	npm run json-server &
+	@echo "🔥 Iniciando servidor de desarrollo..."
+	npm run dev
+
+dev: ## Iniciar JSON Server y desarrollo (sin instalar dependencias)
+	@echo "🚀 Iniciando desarrollo..."
 	@echo "🗄️  Iniciando JSON Server..."
 	npm run json-server &
 	@echo "🔥 Iniciando servidor de desarrollo..."
@@ -51,6 +58,15 @@ format: ## Formatear código con Prettier
 format-check: ## Verificar formato de código
 	@echo "📏 Verificando formato de código..."
 	npm run format:check
+
+# Testing
+test: ## Ejecutar pruebas E2E con Cypress
+	@echo "🧪 Ejecutando pruebas E2E..."
+	npx cypress run
+
+test:open ## Abrir Cypress en modo interactivo
+	@echo "🧪 Abriendo Cypress..."
+	npx cypress open
 
 # Limpieza
 clean: ## Limpiar archivos generados

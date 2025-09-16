@@ -22,7 +22,10 @@ git clone https://github.com/Cessilva/Rick-MortyPortal
 # 2. Navegar al directorio
 cd Rick-MortyPortal
 
-# 3. Iniciar todo automáticamente
+# 3. Primera instalación (instala dependencias + inicia servicios)
+make first-dev
+
+# 4. Para ejecuciones posteriores (solo inicia servicios)
 make dev
 ```
 
@@ -48,6 +51,8 @@ npm run dev
 
 ```bash
 make help           # Mostrar ayuda
+make first-dev      # Primera instalación (instala + inicia servicios)
+make dev            # Iniciar servicios (sin instalar dependencias)
 npm run dev          # Iniciar servidor de desarrollo
 npm run build        # Construir para producción
 npm run start        # Iniciar servidor de producción
@@ -62,6 +67,15 @@ npm run lint:fix     # Corregir errores automáticamente
 npm run format       # Formatear código
 npm run format:check # Verificar formato
 ```
+
+### Pruebas
+
+```bash
+npm run cypress:open # Abrir interfaz de Cypress
+npm run cypress:run  # Ejecutar pruebas en modo headless
+```
+
+**Nota**: Para más información sobre las pruebas, consulta [cypress/README.md](cypress/README.md).
 
 ## 🌐 URLs
 
@@ -111,9 +125,8 @@ Lo que más me gustó de mi desarrollo fue la estructura del proyecto, que se ma
 
 ### Si hubieras tenido más tiempo ¿qué hubieras mejorado o qué más hubieras hecho?
 
-Si hubiera tenido más tiempo, me habría dedicado a revisar a fondo mi código para mejorar la distribución de la interfaz , asegurarme de manejar adecuadamente los errores y la carga de datos. También me habría enfocado en completar las pruebas unitarias . Habría considerado agregar funcionalidades adicionales, como pestañas para episodios o un sistema de inicio de sesión.
+Si hubiera tenido más tiempo, me habría dedicado a revisar a fondo mi código para mejorar la distribución de la interfaz, asegurarme de manejar adecuadamente los errores y la carga de datos, y me habría enfocado en completar las pruebas unitarias para completar los requerimientos minimos.
 
 ### Descríbenos un pain point o bug con el que te hayas encontrado y cómo lo solucionaste.
 
 En este proyecto, me encontré con un pain point al dar por hecho el flujo de la aplicación, enfocándome demasiado en cumplir con los requisitos sin considerar cómo mantener el diseño simple. Esto es algo que como programadores nos sucede a menudo, ya que nos centramos en las especificaciones y no siempre en la mejor solución. Para resolver esto, me tomé el tiempo para reevaluar los requisitos y reestructurar mi código, adecuando las necesidades del proyecto a una solución más óptima y eficiente.
-

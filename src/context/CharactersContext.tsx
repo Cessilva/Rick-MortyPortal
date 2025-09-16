@@ -209,10 +209,8 @@ export const CharactersProvider = ({ children }: CharactersProviderProps) => {
 
   // Load initial data
   useEffect(() => {
-    if (characters.length === 0) {
-      loadCharacters(1);
-    }
-  }, [characters.length, loadCharacters]);
+    loadCharacters(1);
+  }, []); // Solo se ejecuta una vez al montar el componente
 
   const value = {
     characters,
